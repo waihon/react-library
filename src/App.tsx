@@ -13,6 +13,9 @@ export const App = () => {
         <Route path='/' exact>
           <HomePage />
         </Route>
+        <Route path='/home'>
+          <HomePage />
+        </Route>
         <Route path='/search'>
           <SearchBooksPage />
         </Route>
