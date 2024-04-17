@@ -10,7 +10,7 @@ export const App = () => {
     <div>
       <Navbar />
       <Switch>
-        <Route path='/'>
+        <Route path='/' exact>
           <HomePage />
         </Route>
         <Route path='/search'>
