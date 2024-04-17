@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { HomePage } from './layouts/HomePage/HomePage';
 import { Footer } from './layouts/NavbarAndFooter/Footer';
@@ -11,7 +11,7 @@ export const App = () => {
       <Navbar />
       <Switch>
         <Route path='/' exact>
-          <HomePage />
+          <Redirect to='/home' />
         </Route>
         <Route path='/home'>
           <HomePage />
