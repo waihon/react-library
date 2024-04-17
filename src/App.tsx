@@ -1,3 +1,4 @@
+import { Route } from 'react-router-dom';
 import './App.css';
 import { HomePage } from './layouts/HomePage/HomePage';
 import { Footer } from './layouts/NavbarAndFooter/Footer';
@@ -8,8 +9,12 @@ export const App = () => {
   return (
     <div>
       <Navbar />
-      {/* <HomePage /> */}
-      <SearchBooksPage />
+      <Route path='/'>
+        <HomePage />
+      </Route>
+      <Route path='/search'>
+        <SearchBooksPage />
+      </Route>
       <Footer />
     </div>
   );
