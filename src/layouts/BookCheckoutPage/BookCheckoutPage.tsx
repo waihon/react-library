@@ -105,16 +105,32 @@ export const BookCheckoutPage = () => {
 
   useEffect(() => {
     const fetchUserCurrentLoansCount = async () => {
-
+      if (authState && authState.isAuthenticated) {
+        const url = `http://localhost:8080/api/books/secure/currentloans/count`;
+        const requestOptions = {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${authState.accessToken?.accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        };
+        const currentLoansCountResponse = await fetch(url, requestOptions);
+        if (!currentLoansCountResponse.ok) {
+          throw new Error('Something went wrong!');
+        }
+        const currentLoansCountResponseJson = await currentLoansCountResponse.json();
+        setCurrentLoansCount(currentLoansCountResponseJson);
+      }
+      setIsLoadingCurrentLoansCount(false);
     };
 
     fetchUserCurrentLoansCount().catch((error: any) => {
       setIsLoadingCurrentLoansCount(false);
       setHttpError(error.message);
     })
-  }, []);
+  }, [authState]);
 
-  if (isLoading || isLoadingReview) {
+  if (isLoading || isLoadingReview || isLoadingCurrentLoansCount) {
     return (
       <SpinnerLoading />
     );
@@ -149,7 +165,7 @@ export const BookCheckoutPage = () => {
               <StarsReview rating={totalStars} size={32} />
             </div>
           </div>
-          <CheckoutAndReviewBox book={book} mobile={false} />
+          <CheckoutAndReviewBox book={book} mobile={false} currentLoansCount={currentLoansCount} />
         </div>
         <hr />
         <LatestReviews reviews={reviews} bookId={book?.id} mobile={false} />
@@ -172,7 +188,7 @@ export const BookCheckoutPage = () => {
               <StarsReview rating={totalStars} size={32} />
           </div>
         </div>
-        <CheckoutAndReviewBox book={book} mobile={true} />
+        <CheckoutAndReviewBox book={book} mobile={true} currentLoansCount={currentLoansCount} />
         <hr />
         <LatestReviews reviews={reviews} bookId={book?.id} mobile={true} />
       </div>
