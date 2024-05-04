@@ -16,7 +16,7 @@ export const ReviewListPage = () => {
   const [totalAmountOfReviews, setTotalAmountOfReviews] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
-  const bookId = (window.location.pathname).split('/')[-1];  // last element
+  const bookId = (window.location.pathname).split('/').at(-1);  // last element
 
   useEffect(() => {
     const fetchBookReviews = async () => {
